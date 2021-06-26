@@ -12,12 +12,16 @@ WORKDIR /source/hackaton-aws
 RUN dotnet publish -c release -o /app
 
 # tests
-WORKDIR /source/hackaton-aws.tests
-RUN dotnet test --no-build
+FROM build AS test
+WORKDIR /tests
+COPY /source/hackaton-aws.tests/. .
+RUN dotnet test -l trx -r /tests --no-build
 
-# final stage/image
+# final stage/imag
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /app
 COPY --from=build /app ./
+WORKDIR /tests
+COPY --from=test /tests .
 ENV ASPNETCORE_URLS=http://+:8080
 ENTRYPOINT ["dotnet", "hackaton-aws.dll"]
