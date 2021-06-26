@@ -18,6 +18,7 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
+      working-directory: hackaton-aws\src\hackaton-aws
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
