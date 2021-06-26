@@ -7,14 +7,13 @@ COPY *.sln .
 
 # copy everything else and build app
 COPY hackaton-aws/. ./hackaton-aws/
-COPY hackaton-aws.tests/. ./hackaton-aws.tests/
 WORKDIR /source/hackaton-aws
 RUN dotnet publish -c release -o /app
 
 # tests
 FROM build AS test
 WORKDIR /tests
-COPY /source/hackaton-aws.tests/. .
+COPY hackaton-aws.tests/. .
 RUN dotnet test -l trx -r /tests --no-build
 
 # final stage/imag
