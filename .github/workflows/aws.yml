@@ -60,6 +60,6 @@ jobs:
         # Build a docker container and
         # push it to ECR so that it can
         # be deployed to ECS.
-        docker build -t public.ecr.aws/$ECR_REPOSITORY:$IMAGE_TAG .
-        docker push public.ecr.aws/$ECR_REPOSITORY:$IMAGE_TAG
-        echo "::set-output name=image::public.ecr.aws/$ECR_REPOSITORY:$IMAGE_TAG"
+        docker build -t public.ecr.aws/$ECR_REPOSITORY:latest .
+        docker push public.ecr.aws/$ECR_REPOSITORY:latest
+        echo "::set-output name=image::public.ecr.aws/$ECR_REPOSITORY:latest"
