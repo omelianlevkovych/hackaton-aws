@@ -54,12 +54,13 @@ jobs:
       working-directory: ./src/hackaton-aws
       id: build-image
       env:
-        ECR_REPOSITORY: p6b9v5w2/hackaton-aws
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: hackaton-aws
         IMAGE_TAG: ${{ github.sha }}
       run: |
         # Build a docker container and
         # push it to ECR so that it can
         # be deployed to ECS.
-        docker build -t public.ecr.aws/$ECR_REPOSITORY:latest .
-        docker push public.ecr.aws/$ECR_REPOSITORY:latest
-        echo "::set-output name=image::public.ecr.aws/$ECR_REPOSITORY:latest"
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
