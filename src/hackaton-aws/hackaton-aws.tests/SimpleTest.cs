@@ -8,7 +8,7 @@ namespace hackaton_aws.tests
         [Fact]
         public void TestExample()
         {
-            Assert.Equal(4, 2 + 2);
+            Assert.Equal(5, 2 + 2);
         }
     }
 }
